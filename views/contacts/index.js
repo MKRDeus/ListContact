@@ -89,28 +89,33 @@ form.addEventListener("submit", async (e) => {
   const listItem = document.createElement("li");
   listItem.id = data.id;
   listItem.innerHTML = `
-  <li class="h-20 flex flex-row gap-4 bg-gray-600 rounded-xl p-3 m-0">
-  <input id="name-contact" type="text"
-    class="w-1/3 text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400"
-    value="${data.name}" readonly />
-  <input id="numberphone-contact" type="text"
-    class="w-1/3 text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400 "
-    value="${data.number}" readonly />
-  <div class="h-full w-1/4 flex flex-row gap-2">
-    <button id="delete-btn" class="h-full w-2/4 bg-red-500 hover:bg-red-700 flex justify-center items-center rounded-2xl p-2">
+  <li class="h-24 flex flex-row gap-4 bg-gray-600 rounded-xl p-3 m-0">
+  <div class="flex flex-col md:flex-row w-3/4 gap-2"><input id="name-contact" type="text"
+  class="w-full text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400"
+  value="${nameInput.value}" readonly />
+<input id="numberphone-contact" type="text"
+  class="w-full text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400 "
+  value="${numberphoneInput.value}" readonly />
+</div>
+<div class="w-1/4">
+  <div class="h-full w-full flex flex-col md:flex-row gap-2">
+    <button id="delete-btn" class="h-full w-full bg-red-500 hover:bg-red-700 flex justify-center items-center rounded-2xl p-2">
       <ion-icon class="text-3xl text-black hover:text-white"
         name="trash-bin-outline"></ion-icon>
     </button>
-    <button id="edit-btn" class="h-full w-2/4 bg-blue-500 hover:bg-blue-700 flex justify-center items-center rounded-2xl p-2">
+    <button id="edit-btn" class="h-full w-full bg-blue-500 hover:bg-blue-700 flex justify-center items-center rounded-2xl p-2">
       <ion-icon class="text-3xl text-black hover:text-white" name="create-outline"></ion-icon>
     </button>
-    <button id="check-btn"
-      class="h-full w-2/4 bg-green-500 hover:bg-green-700 hidden justify-center items-center rounded-2xl p-2">
+    <button id="check-btn" disabled
+      class="h-full w-full bg-green-500 hover:bg-green-700 hidden justify-center items-center rounded-2xl p-2">
       <ion-icon class="text-3xl text-black hover:text-white"
         name="checkmark-circle-outline"></ion-icon>
     </button>
   </div>
+</div>  
 </li>
+
+
     `;
   //Add listItem to list
   list.appendChild(listItem);
@@ -127,7 +132,7 @@ form.addEventListener("submit", (e) => {
 list.addEventListener('click', async (e) => {
   if (e.target.closest('#delete-btn')) {
     try {
-      const contact = e.target.closest('#delete-btn').parentElement.parentElement.parentElement;
+      const contact = e.target.closest('#delete-btn').parentElement.parentElement.parentElement.parentElement;
       await axios.delete(`/api/contacts/${contact.id}`);
       list.removeChild(contact);
     } catch (error) {
@@ -136,31 +141,33 @@ list.addEventListener('click', async (e) => {
   }
 
   if (e.target.closest('#edit-btn')) {
-    const editBtn = e.target.closest('#edit-btn').parentElement.parentElement.children[2].children[1];
-    const contactInput = e.target.closest('#edit-btn').parentElement.parentElement.children[0];
-    const numberInput = e.target.closest('#edit-btn').parentElement.parentElement.children[1];
-    const doneBtn = e.target.closest('#edit-btn').parentElement.parentElement.children[2].children[2];
+    const editBtn = e.target.closest('#edit-btn');
+    const contactList = e.target.closest('#edit-btn').parentElement.parentElement.parentElement.children[0].children[0];
+    const numberList = e.target.closest('#edit-btn').parentElement.parentElement.parentElement.children[0].children[1];
+    const doneBtn = e.target.closest('#edit-btn').parentElement.children[2];
+
     //remove readonly
-    contactInput.removeAttribute("readonly");
-    numberInput.removeAttribute("readonly");
+    contactList.removeAttribute("readonly");
+    numberList.removeAttribute("readonly");
     //mostrar done-btn
     doneBtn.classList.add('flex');
     doneBtn.classList.remove('hidden');
     //esconder edit-btn
     editBtn.classList.remove('flex');
     editBtn.classList.add('hidden');
+
   }
   if (e.target.closest('#check-btn')) {
     try {
-      const contact = e.target.closest('#check-btn').parentElement.parentElement.parentElement;
-      const contactInput = e.target.closest('#check-btn').parentElement.parentElement.children[0];
-      const numberInput = e.target.closest('#check-btn').parentElement.parentElement.children[1];
-      const editBtn = e.target.closest('#check-btn').parentElement.parentElement.children[2].children[1];
-      const doneBtn = e.target.closest('#check-btn').parentElement.parentElement.children[2].children[2];
-      await axios.patch(`/api/contacts/${contact.id}`, { name: contactInput.value, number: numberInput.value });
+      const contact = e.target.closest('#check-btn').parentElement.parentElement.parentElement.parentElement;
+      const contactList = e.target.closest('#check-btn').parentElement.parentElement.parentElement.children[0].children[0];
+      const numberList = e.target.closest('#check-btn').parentElement.parentElement.parentElement.children[0].children[1];
+      const editBtn = e.target.closest('#check-btn').parentElement.children[1];
+      const doneBtn = e.target.closest('#check-btn');
+      await axios.patch(`/api/contacts/${contact.id}`, { name: contactList.value, number: numberList.value });
       //set readonly
-      contactInput.setAttribute("readonly", "on");
-      numberInput.setAttribute("readonly", "on");
+      contactList.setAttribute("readonly", "on");
+      numberList.setAttribute("readonly", "on");
       //mostrar edit-btn
       editBtn.classList.add('flex');
       editBtn.classList.remove('hidden');
@@ -168,11 +175,11 @@ list.addEventListener('click', async (e) => {
       doneBtn.classList.remove('flex');
       doneBtn.classList.add('hidden');
       //quitar background
-      contactInput.classList.remove('bg-green-500');
-      numberInput.classList.remove('bg-green-500');
+      contactList.classList.remove('bg-green-500');
+      numberList.classList.remove('bg-green-500');
       //colocar background
-      contactInput.classList.add('bg-gray-400');
-      numberInput.classList.add('bg-gray-400');
+      contactList.classList.add('bg-gray-400');
+      numberList.classList.add('bg-gray-400');
     } catch (error) {
       console.log(error);
     }
@@ -229,27 +236,30 @@ hideInfo.addEventListener('click', function () {
       const listItem = document.createElement("li");
       listItem.id = contact.id;
       listItem.innerHTML = `
-  <li class="h-20 flex flex-row gap-4 bg-gray-600 rounded-xl p-3 m-0">
-  <input id="name-contact" type="text"
-    class="w-1/3 text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400"
-    value="${contact.name}" readonly />
-  <input id="numberphone-contact" type="text"
-    class="w-1/3 text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400 "
-    value="${contact.number}" readonly />
-  <div class="h-full w-1/4 flex flex-row gap-2">
-    <button id="delete-btn" class="h-full w-2/4 bg-red-500 hover:bg-red-700 flex justify-center items-center rounded-2xl p-2">
+  <li class="h-24 flex flex-row gap-4 bg-gray-600 rounded-xl p-3 m-0">
+  <div class="flex flex-col md:flex-row w-3/4 gap-2"><input id="name-contact" type="text"
+  class="w-full text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400"
+  value="${contact.name}" readonly />
+<input id="numberphone-contact" type="text"
+  class="w-full text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400 "
+  value="${contact.number}" readonly />
+</div>
+<div class="w-1/4">
+  <div class="h-full w-full flex flex-col md:flex-row gap-2">
+    <button id="delete-btn" class="h-full w-full bg-red-500 hover:bg-red-700 flex justify-center items-center rounded-2xl p-2">
       <ion-icon class="text-3xl text-black hover:text-white"
         name="trash-bin-outline"></ion-icon>
     </button>
-    <button id="edit-btn" class="h-full w-2/4 bg-blue-500 hover:bg-blue-700 flex justify-center items-center rounded-2xl p-2">
+    <button id="edit-btn" class="h-full w-full bg-blue-500 hover:bg-blue-700 flex justify-center items-center rounded-2xl p-2">
       <ion-icon class="text-3xl text-black hover:text-white" name="create-outline"></ion-icon>
     </button>
     <button id="check-btn" disabled
-      class="h-full w-2/4 bg-green-500 hover:bg-green-700 hidden justify-center items-center rounded-2xl p-2">
+      class="h-full w-full bg-green-500 hover:bg-green-700 hidden justify-center items-center rounded-2xl p-2">
       <ion-icon class="text-3xl text-black hover:text-white"
         name="checkmark-circle-outline"></ion-icon>
     </button>
   </div>
+</div>  
 </li>
     `;
       list.appendChild(listItem);
