@@ -1,6 +1,6 @@
 const PAGE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'placeholder'
+    ? 'https://list-contact.onrender.com'
     : 'http://localhost:3000';
 
 const MONGO_URI =
