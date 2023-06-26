@@ -52,7 +52,7 @@ usersRouter.post('/', async (request, response) => {
  
   return response
     .status(201)
-    .json({ check: `Usuario creado. Verifique su usuario inmediatamente no podra hacerlo despues <a class="bg-indigo-500 hover:bg-indigo-300 p-1 rounded-lg" target="_blank" href="${PAGE_URL}/verify/${savedUser.id}/${token}">Verificar Usuario</a>` });
+    .json({ check: `Usuario creado. Revise su correo y verifique su usuario` });
 
 });
 
@@ -88,10 +88,10 @@ usersRouter.patch('/:id/:token', async (request, response) => {
       from: process.env.EMAIL_USER, // sender address
       to: email, // list of receivers
       subject: 'Verificacion de usuario', // Subject line
-      html: `<a href="${PAGE_URL}/verify/${token}">Verificar correo</a>`,
+      html: `<a class="bg-indigo-500 hover:bg-indigo-300 p-1 rounded-lg" target="_blank" href="${PAGE_URL}/verify/${savedUser.id}/${token}">Verificar Usuario</a>`,
     });
   
-    return response.status(400).json({ error: 'El link ya expiro, verifique de nuevo <a class="bg-indigo-500 hover:bg-indigo-300 p-1 rounded-lg" target="_blank" href="${PAGE_URL}/verify/${id}/${token}">Verificar Usuario</a>' });
+    return response.status(400).json({ error: 'El link ya expiro, verifique de nuevo su correo' });
   }
 });
 
