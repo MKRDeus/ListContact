@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda de Contactos</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-red-700">
+  <nav id="navbar" class="fixed top-0 right-0 left-0 bg-red-900 h-16">
+    <ul class="max-w-7xl h-16 mx-auto flex items-center px-4 justify-around">
+      <li id="add-link" class="flex justify-center items-center bg-red-700 hover:bg-red-500 h-12 p-4 rounded-xl">
+        <a class="text-lg text-white font-bold">Agregar Contacto</a>
+      </li>
+      <li id="contact-link" class="flex justify-center items-center bg-red-700 hover:bg-red-500 h-12 p-4 rounded-xl">
+        <a class="text-lg text-white font-bold">Contactos</a>
+      </li>
+      <li id="logout-link" class="flex justify-center items-center bg-indigo-700 hover:bg-indigo-500 h-12 p-4 rounded-xl">
+        <a class="text-lg text-white font-bold">Log Out</a>
+      </li>
+    </ul>
+  </nav>
+  <div id="main-container" class="h-screen w-full flex justify-center items-center">
+    <form id="form"
+      class="h-4/5 sm:w-2/4 md:w-3/4 lg:w-2/4 hidden justify-center items-center mt-16 border-2 md:border-4 border-indigo-500 rounded-2xl p-6 sm:p-3 mx-12 sm:mx-8 shadow-lg shadow-indigo-500">
+      <div id="register-container" class="h-full sm:w-full md:w-full lg:w-full flex flex-col justify-center gap-3 p-6">
+        <div id="title-container" class="sm:w-full md:w-full lg:w-full flex justify-center items-center p-2">
+          <h1 id="title" class="text-white text-3xl text-center font-bold py-4">
+            Agregar Contacto
+          </h1>
+        </div>
+        <div id="input-container" class="flex flex-col gap-3">
+          <div id="name-input-container" class="flex flex-col gap-2 bg-gray-700 rounded-xl p-4">
+            <label class="flex justify-around text-white text-lg font-bold" for="name-input">Nombre <span
+                class="text-black text-3xl">*</span></label>
+            <input autocomplete="off"
+              class="bg-gray-200 focus:bg-gray-400 p-3 rounded-lg text-black font-semibold placeholder:text-black outline-8"
+              id="name-input" type="text" placeholder="Ejem: Andres Bello" />
+            <p class="hidden bg-black text-base text-white p-4 rounded-lg font-semibold text-justify">
+              Debe ingresar solo letras, no numeros. Ejemplo: "Moises Romero".
+            </p>
+          </div>
+          <div id="input-numberphone-container" class="flex flex-col gap-2 bg-gray-700 rounded-xl p-4">
+            <label class="flex justify-around text-white text-lg font-bold" for="numberphone-input">Numero de
+              Telefono<span class="text-black text-3xl">*</span></label>
+            <input autocomplete="off"
+              class="bg-gray-200 focus:bg-gray-400 p-3 rounded-lg text-black font-semibold placeholder:text-black outline-8"
+              type="text" id="numberphone-input" placeholder="Ejem: 04241114444" />
+            <p class="hidden bg-black text-base text-white p-4 rounded-lg font-semibold text-justify">
+              Debe ingresar solo numeros telofonicos venezolanos, no letras.
+              Ejemplo: "0412-3597432".
+            </p>
+          </div>
+        </div>
+        <button class="bg-gray-500 p-4 rounded-xl text-center font-bold text-xl hover:bg-gray-800 hover:text-white"
+          type="submit" id="register-button">
+          Registrar
+        </button>
+      </div>
+    </form>
+    <div id="list-container"
+      class="h-4/5 w-3/4 md:w-3/4 lg:w-3/5 flex flex-col justify-center items-center mt-16 mx-8 border-2 md:border-4 border-indigo-500 rounded-3xl p-4 shadow-lg shadow-indigo-500">
+      <h1 class="my-12 text-3xl font-bold text-black text-center">
+        Lista de Contactos
+      </h1>
+      <ul id="list" class="h-full w-full flex flex-col gap-3 m-0 py-4 mx-4 overflow-y-auto">
+        
+      </ul>
+    </div>
+    <div>
+      <a id="show-info" class="m-0 p-0 fixed bottom-6 right-6"><ion-icon
+          class="text-4xl bg-gray-400 hover:bg-gray-700 rounded-full p-2"
+          name="information-circle-outline"></ion-icon></a>
+      <p id="info"
+        class="hidden flex-row w-2/4 fixed left-8 top-12 bg-gray-400 border-2 border-gray-600 rounded-2xl p-4 text-lg text-black font-semibold">
+        los nombres solo debe ingresar letras, no numeros. Ejemplo: "Moises
+        Romero". Los Num. Tele. solo debe ser numeros telofonicos venezolanos,
+        no letras. Ejemplo: "0412-3597432".
+
+        <a id="hide-info" class="mx-">
+          <ion-icon class="bg-red-800 hover:bg-red-600 rounded-full p-1 text-2xl font-extrabold"
+            name="close-outline"></ion-icon>
+      </p>
+      </a>
+    </div>
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
