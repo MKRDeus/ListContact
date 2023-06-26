@@ -32,7 +32,7 @@ usersRouter.post('/', async (request, response) => {
 
   const token = jwt.sign({ id: newUser.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
 
-  /*
+  
    let transporter = nodemailer.createTransport({
      host: "smtp.gmail.com",
      port: 465,
@@ -49,7 +49,7 @@ usersRouter.post('/', async (request, response) => {
      subject: 'Verificacion de usuario', // Subject line
      html: `<a href="${PAGE_URL}/verify/${token}">Verificar correo</a>`,
    });
- */
+ 
   return response
     .status(201)
     .json({ check: `Usuario creado. Verifique su usuario inmediatamente no podra hacerlo despues <a class="bg-indigo-500 hover:bg-indigo-300 p-1 rounded-lg" target="_blank" href="${PAGE_URL}/verify/${savedUser.id}/${token}">Verificar Usuario</a>` });
@@ -73,7 +73,7 @@ usersRouter.patch('/:id/:token', async (request, response) => {
     const token = jwt.sign({ id: id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
 
     //enviar el email
-    /*
+    
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -90,7 +90,7 @@ usersRouter.patch('/:id/:token', async (request, response) => {
       subject: 'Verificacion de usuario', // Subject line
       html: `<a href="${PAGE_URL}/verify/${token}">Verificar correo</a>`,
     });
-  */
+  
     return response.status(400).json({ error: 'El link ya expiro, verifique de nuevo <a class="bg-indigo-500 hover:bg-indigo-300 p-1 rounded-lg" target="_blank" href="${PAGE_URL}/verify/${id}/${token}">Verificar Usuario</a>' });
   }
 });
