@@ -25,7 +25,7 @@
   </nav>
   <div id="main-container" class="h-screen w-full flex justify-center items-center">
     <form id="form"
-      class="h-4/5 w-4/5 md:w-3/4 lg:w-2/4 hidden justify-center items-center mt-16 border-2 md:border-4 border-indigo-500 shadow-lg shadow-indigo-500 rounded-2xl">
+      class="h-4/5 w-4/5 md:w-3/4 lg:w-2/4 hidden justify-center items-center mt-16 border-2 md:border-4 border-indigo-500 shadow-lg shadow-indigo-500 rounded-2xl overflow-y-auto">
       <div id="register-container" class="h-full sm:w-full md:w-full lg:w-full flex flex-col justify-center gap-3 px-4">
         <div id="title-container" class="sm:w-full md:w-full lg:w-full flex justify-center items-center p-2">
           <h1 id="title" class="text-white text-3xl text-center font-bold py-4">
@@ -40,7 +40,7 @@
               class="bg-gray-200 focus:bg-gray-400 p-3 rounded-lg text-black font-semibold placeholder:text-black outline-8"
               id="name-input" type="text" placeholder="Ejem: Andres Bello" />
             <p class="hidden bg-black text-base text-white p-4 rounded-lg font-semibold text-justify">
-              Debe ingresar solo letras, no numeros. Ejemplo: "Moises Romero".
+              Debe llevar nombre y apellido. Las primeras letras de estas, deben ser mayusculas. El nombre y el apellido deben estar separados por un espacio. Ejemplo: Moisés Romero.
             </p>
           </div>
           <div id="input-numberphone-container" class="flex flex-col gap-2 bg-gray-700 rounded-xl p-4">
@@ -50,8 +50,7 @@
               class="bg-gray-200 focus:bg-gray-400 p-3 rounded-lg text-black font-semibold placeholder:text-black outline-8"
               type="text" id="numberphone-input" placeholder="Ejem: 04241114444" />
             <p class="hidden bg-black text-base text-white p-4 rounded-lg font-semibold text-justify">
-              Debe ingresar solo numeros telofonicos venezolanos, no letras.
-              Ejemplo: "0412-3597432".
+              Debe ingresar un numero telofonico, no ingrese letras. solo numeros venezolanos (0424,0414,0412,0416,0426).
             </p>
           </div>
         </div>
