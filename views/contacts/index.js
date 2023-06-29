@@ -92,10 +92,10 @@ form.addEventListener("submit", async (e) => {
   <li class="h-24 flex flex-row gap-4 bg-gray-600 rounded-xl p-3 m-0">
   <div class="flex flex-col md:flex-row w-3/4 gap-2"><input id="name-contact" type="text"
   class="w-full text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400"
-  value="${nameInput.value}" readonly />
+  value="${data.name}" readonly />
 <input id="numberphone-contact" type="text"
   class="w-full text-lg font-semibold p-2 rounded-xl outline-none outline-4 bg-gray-400 "
-  value="${numberphoneInput.value}" readonly />
+  value="${data.number}" readonly />
 </div>
 <div class="w-1/4">
   <div class="h-full w-full flex flex-col md:flex-row gap-2">
